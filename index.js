@@ -29,10 +29,14 @@ app.get("/api/hello", function (req, res) {
 app.get('/api/:date?', (req, res) => {
   let { date } = req.params;
 
+  console.log(date)
+
   let dateObj = Number(date)
   let displayDate
 
-  if (isNaN(dateObj)){
+  if(!date){
+    displayDate = new Date()
+  } else if (isNaN(dateObj)){
     displayDate = new Date(date)
   } else {
     displayDate = new Date(dateObj)
