@@ -26,10 +26,9 @@ app.get("/api/hello", function (req, res) {
 
 
 
-app.get('/api/:date', (req, res) => {
+app.get('/api/:date?', (req, res) => {
   let { date } = req.params;
 
-  
   let dateObj = Number(date)
   let displayDate
 
@@ -42,6 +41,11 @@ app.get('/api/:date', (req, res) => {
   let unix = displayDate.getTime()
   let utc = displayDate.toUTCString()
 
+  if (utc === "Invalid Date"){
+    res.json({ error: utc })
+    return 
+  }
+
   res.json({ 
     unix: unix,
     utc: utc
@@ -52,4 +56,4 @@ app.get('/api/:date', (req, res) => {
 // Listen on port set in environment variable or default to 3000
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
-});
+})
